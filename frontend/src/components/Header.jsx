@@ -34,6 +34,14 @@ export default function ButtonAppBar() {
           <Button color="inherit" onClick={handleHomeClick}>
             Home
           </Button>
+          <Button
+            color="inherit"
+            href="https://app.swaggerhub.com/apis/CHINMAYGULHANE_1/Company/1.0.0#/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            API Documentation
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
