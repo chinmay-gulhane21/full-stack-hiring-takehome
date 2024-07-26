@@ -1,45 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, Link, useLocation } from "react-router-dom";
-import {
-  APIProvider,
-  Map,
-  AdvancedMarker,
-  Pin,
-  InfoWindow,
-} from "@vis.gl/react-google-maps";
+import { APIProvider } from "@vis.gl/react-google-maps";
 import companyService from "../../services/companyService";
 import "./CompanyDetailsPage.css";
 import Button from "@mui/material/Button";
-
-// CSS style for the map container
-const mapContainerStyle = {
-  height: "100%",
-  width: "100%",
-};
+import { Grid, InputAdornment, TextField, Typography } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import CompanyLocationCard from "./CompanyLocationCard";
+import CompanyMap from "./CompanyMap";
 
 // Helper function to create a map center object from latitude and longitude
 const mapCenter = (latitude, longitude) => ({
   lat: parseFloat(latitude),
   lng: parseFloat(longitude),
 });
-
-// Component to render markers on the map
-const PoiMarkers = ({ pois, handleClick }) => {
-  return (
-    <>
-      {pois.map((poi) => (
-        <AdvancedMarker
-          key={poi.location_id}
-          position={mapCenter(poi.latitude, poi.longitude)}
-          clickable={true}
-          onClick={() => handleClick(poi)}
-        >
-          <Pin background="#FBBC04" glyphColor="#000" borderColor="#000" />
-        </AdvancedMarker>
-      ))}
-    </>
-  );
-};
 
 function CompanyDetailsPage() {
   // Get the company ID from the URL parameters
@@ -52,6 +26,7 @@ function CompanyDetailsPage() {
   const [locations, setLocations] = useState([]);
   // State for storing the selected location
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [search, setSearch] = useState("");
   // Ref to store the map instance
   const mapRef = useRef(null);
 
@@ -101,81 +76,102 @@ function CompanyDetailsPage() {
     }
   };
 
+  const filteredLocations = locations.filter((loc) =>
+    loc.address.toLowerCase().includes(search.toLowerCase())
+  );
+
   // Display loading state while fetching data
   if (!company) return <div>Loading...</div>;
 
   return (
-    <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
+    <APIProvider apiKey="AIzaSyArLUBiKVcF8lepIxEWgPibq5-EuD39zNI">
+      {/* <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}> */}
       <div className="company-name-container">
-        <h1 className="company-name">{company.name}</h1>
-      </div>
-      <div className="company-details-container">
-        <div className="details-section">
-          <h2 className="location-heading">Locations</h2>
-          <ul>
-            {locations.map((location) => (
-              <li
-                key={location.location_id}
-                onClick={() => handleLocationClick(location)}
-                className={
-                  selectedLocation &&
-                  selectedLocation.location_id === location.location_id
-                    ? "selected-location"
-                    : ""
-                }
-              >
-                <h3>{location.name}</h3>
-                <p>{location.address}</p>
-                <p>
-                  Lat: {location.latitude}, Long: {location.longitude}
-                </p>
-              </li>
-            ))}
-          </ul>
+        <div style={{ width: "50%", marginLeft: "22px" }}>
           <Button
             component={Link}
-            to={{
-              pathname: `/`,
-              state: { company },
-            }}
+            to={{ pathname: `/`, state: { company } }}
             variant="contained"
             color="primary"
           >
             Back to List
           </Button>
         </div>
-        <div className="map-container">
-          <Map
-            defaultZoom={13}
-            defaultCenter={mapCenter(company.latitude, company.longitude)}
-            mapId="compay_location_map"
-            style={mapContainerStyle}
-            onLoad={(map) => {
-              mapRef.current = map;
-            }}
+        <div>
+          <h1 className="company-name">{company.name}</h1>
+        </div>
+      </div>
+      <div className="company-details-container">
+        <div className="details-section">
+          <Grid
+            container
+            spacing={2}
+            alignItems="center"
+            style={{ marginBottom: "16px" }}
           >
-            <PoiMarkers
-              pois={[company, ...locations]}
-              handleClick={handleLocationClick}
-            />
-            {selectedLocation && (
-              <InfoWindow
-                position={mapCenter(
-                  selectedLocation.latitude,
-                  selectedLocation.longitude
-                )}
-                onCloseClick={() => setSelectedLocation(null)}
+            {/* Title */}
+            <Grid
+              item
+              xs={12}
+              md={6}
+              container
+              justifyContent="flex-start"
+              marginTop={2}
+              className="location-header"
+            >
+              <Typography
+                variant="h4"
+                component="h1"
+                gutterBottom
+                style={{
+                  fontFamily: "Roboto, sans-serif",
+                  color: "#3f51b5",
+                  fontWeight: "bold",
+                }}
               >
-                <div className="info-window-content">
-                  <h3>{selectedLocation.name}</h3>
-                  <p>{selectedLocation.address}</p>
-                  {selectedLocation.company_id && (
-                    <p>Company ID: {selectedLocation.company_id}</p>
-                  )}
-                </div>
-              </InfoWindow>
-            )}
-          </Map>
+                Locations
+              </Typography>
+            </Grid>
+
+            {/* Search Field */}
+            <Grid item xs={12} md={6} className="search-location">
+              <TextField
+                placeholder="Search"
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+          </Grid>
+
+          <ul>
+            {filteredLocations.map((location) => (
+              <CompanyLocationCard
+                location={location}
+                selectedLocation={selectedLocation}
+                handleLocationClick={handleLocationClick}
+              />
+            ))}
+          </ul>
+        </div>
+        <div className="map-container">
+          <CompanyMap
+            company={company}
+            mapRef={mapRef}
+            locations={locations}
+            handleLocationClick={handleLocationClick}
+            selectedLocation={selectedLocation}
+            setSelectedLocation={setSelectedLocation}
+          />
         </div>
       </div>
     </APIProvider>

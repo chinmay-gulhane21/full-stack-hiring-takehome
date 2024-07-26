@@ -1,8 +1,8 @@
 .company-name-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-
+  flex-wrap: wrap-reverse;
   .company-name {
     margin-top: 0;
   }
@@ -11,7 +11,8 @@
 .company-details-container {
   display: flex;
   flex-direction: row;
-
+  
+  
   .details-section {
     width: 35%;
     padding: 0 20px 20px 20px;
@@ -54,7 +55,6 @@
   .info-window-content {
     max-width: 200px;
     font-family: Arial, sans-serif;
-      
     h3 {
       margin: 0;
       font-size: 16px;
@@ -66,6 +66,30 @@
     }
   }
 }
-
   
-  
+@media only screen and (max-width: 600px) {
+  .company-name-container {
+    width: 100% !important;
+    font-size: smaller;
+    justify-content: center;
+    /* margin-bottom: 20px; */
+  }
+  .company-details-container {
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+  }
+  .details-section {
+    width: 100% !important;
+    justify-content: center;
+  }
+  .location-header {
+    justify-content: center !important;
+  }
+  .map-container {
+    width: 100%;
+  }
+  .search-location {
+    padding-top: 0 !important;
+  }
+}
