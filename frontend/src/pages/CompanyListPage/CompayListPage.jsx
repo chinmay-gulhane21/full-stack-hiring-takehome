@@ -5,8 +5,18 @@ import {
   Grid,
   Container,
   InputAdornment,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+  IconButton,
+  Box,
+  Tooltip,
+  Pagination,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import CompanyCard from "../../components/CompanyCard";
 import companyService from "../../services/companyService";
 
@@ -15,8 +25,16 @@ function CompanyListPage() {
   const [companies, setCompanies] = useState([]);
   // State to store the search query
   const [search, setSearch] = useState("");
+  // State to store the selected sort option
+  const [sortOption, setSortOption] = useState("name");
+  // State to store the sort direction
+  const [sortDirection, setSortDirection] = useState("asc");
+  // State to store the current page
+  const [currentPage, setCurrentPage] = useState(1);
+  // State to store the number of companies per page
+  const [companiesPerPage, setCompaniesPerPage] = useState(9);
 
-  // useEffect to fetch the list of companies from the API when the component mounts
+  // fetch all companies
   useEffect(() => {
     const fetchCompanies = async () => {
       try {
@@ -34,10 +52,46 @@ function CompanyListPage() {
     fetchCompanies();
   }, []);
 
-  // Filter companies based on the search query
+  // Filter companies
   const filteredCompanies = companies.filter((company) =>
     company.name.toLowerCase().includes(search.toLowerCase())
   );
+
+  // Sort companies
+  const sortedCompanies = filteredCompanies.sort((a, b) => {
+    let comparison = 0;
+    if (sortOption === "name") {
+      comparison = a.name.localeCompare(b.name);
+    } else if (sortOption === "location") {
+      comparison = a.address.localeCompare(b.address);
+    }
+    return sortDirection === "asc" ? comparison : -comparison;
+  });
+
+  // Calculate the companies to be displayed on the current page
+  const indexOfLastCompany = currentPage * companiesPerPage;
+  const indexOfFirstCompany = indexOfLastCompany - companiesPerPage;
+  const currentCompanies = sortedCompanies.slice(
+    indexOfFirstCompany,
+    indexOfLastCompany
+  );
+
+  // Toggle sort between ascending and descending
+  const toggleSortDirection = () => {
+    setSortDirection((prevDirection) =>
+      prevDirection === "asc" ? "desc" : "asc"
+    );
+  };
+
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
+
+  // Handle page size change
+  const handleCompaniesPerPageChange = (event) => {
+    setCompaniesPerPage(event.target.value);
+    setCurrentPage(1);
+  };
 
   return (
     <Container>
@@ -51,7 +105,7 @@ function CompanyListPage() {
         <Grid
           item
           xs={12}
-          md={6}
+          md={4}
           container
           justifyContent="flex-start"
           marginTop={2}
@@ -71,7 +125,7 @@ function CompanyListPage() {
         </Grid>
 
         {/* Search Field */}
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={4}>
           <TextField
             placeholder="Search Companies"
             variant="outlined"
@@ -88,14 +142,66 @@ function CompanyListPage() {
             }}
           />
         </Grid>
+
+        <Grid item xs={12} md={4} container alignItems="center">
+          <FormControl fullWidth variant="outlined" margin="normal">
+            <InputLabel>Sort By</InputLabel>
+            <Box display="flex" alignItems="center">
+              <Select
+                value={sortOption}
+                onChange={(e) => setSortOption(e.target.value)}
+                label="Sort By"
+                style={{ flexGrow: 1 }}
+              >
+                <MenuItem value="name">Name</MenuItem>
+                <MenuItem value="location">Location</MenuItem>
+              </Select>
+              <Tooltip
+                title={sortDirection === "asc" ? "Ascending" : "Descending"}
+              >
+                <IconButton onClick={toggleSortDirection} size="small">
+                  {sortDirection === "asc" ? (
+                    <FontAwesomeIcon icon={faArrowUp} fontSize="inherit" />
+                  ) : (
+                    <FontAwesomeIcon icon={faArrowDown} fontSize="inherit" />
+                  )}
+                </IconButton>
+              </Tooltip>
+            </Box>
+          </FormControl>
+        </Grid>
       </Grid>
 
-      {/* Company Cards */}
       <Grid container spacing={4}>
-        {filteredCompanies.map((company) => (
+        {currentCompanies.map((company) => (
           <CompanyCard key={company.company_id} company={company} />
         ))}
       </Grid>
+
+      <Box mt={4} display="flex" justifyContent="center" alignItems="center">
+        <FormControl
+          variant="outlined"
+          margin="normal"
+          style={{ minWidth: 120 }}
+        >
+          <InputLabel>Page Size</InputLabel>
+          <Select
+            value={companiesPerPage}
+            onChange={handleCompaniesPerPageChange}
+            label="Companies Per Page"
+          >
+            <MenuItem value={6}>6</MenuItem>
+            <MenuItem value={9}>9</MenuItem>
+            <MenuItem value={15}>15</MenuItem>
+          </Select>
+        </FormControl>
+        <Pagination
+          count={Math.ceil(sortedCompanies.length / companiesPerPage)}
+          page={currentPage}
+          onChange={handlePageChange}
+          color="primary"
+        />
+      </Box>
     </Container>
   );
 }
