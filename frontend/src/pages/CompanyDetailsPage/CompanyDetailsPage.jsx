@@ -84,8 +84,7 @@ function CompanyDetailsPage() {
   if (!company) return <div>Loading...</div>;
 
   return (
-    <APIProvider apiKey="AIzaSyArLUBiKVcF8lepIxEWgPibq5-EuD39zNI">
-      {/* <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}> */}
+    <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
       <div className="company-name-container">
         <div style={{ width: "50%", marginLeft: "22px" }}>
           <Button
