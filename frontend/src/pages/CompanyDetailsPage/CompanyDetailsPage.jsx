@@ -6,8 +6,8 @@ import "./CompanyDetailsPage.css";
 import Button from "@mui/material/Button";
 import { Grid, InputAdornment, TextField, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import CompanyLocationCard from "./CompanyLocationCard";
-import CompanyMap from "./CompanyMap";
+import CompanyLocationCard from "../../components/CompanyLocationCard";
+import CompanyMap from "../../components/CompanyMap";
 
 // Helper function to create a map center object from latitude and longitude
 const mapCenter = (latitude, longitude) => ({
