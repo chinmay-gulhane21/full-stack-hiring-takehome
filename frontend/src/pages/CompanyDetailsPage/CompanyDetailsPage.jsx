@@ -188,14 +188,16 @@ function CompanyDetailsPage() {
           />
         </div>
       </div>
-      <Typography
-        variant="h4"
-        component="h1"
-        gutterBottom
-        className="sub-heading"
-      >
-        Analytics
-      </Typography>
+      <div className="sub-heading-div">
+        <Typography
+          variant="h4"
+          component="h1"
+          gutterBottom
+          className="sub-heading"
+        >
+          Analytics
+        </Typography>
+      </div>
       <div className="chart-container">
         <div className="emp-pie-chart">
           <EmployeesPieChart locations={locations} />

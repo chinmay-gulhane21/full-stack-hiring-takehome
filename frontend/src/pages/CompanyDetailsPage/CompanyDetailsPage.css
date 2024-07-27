@@ -87,19 +87,47 @@
 .chart-container {
   margin-top: 32px;
   display: flex;
+  flex-direction: row; 
+}
 
-  .emp-pie-chart{
-    width: 35% !important;
-    display: flex;
-    justify-content: center;
-    height: 400px  !important;
+.emp-pie-chart {
+  width: 35%; 
+  display: flex;
+  justify-content: center;
+  height: 400px;
+}
+
+.rev-bar-chart {
+  width: 65%; 
+  height: 400px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  .details-section {
+    width: 100% !important; 
+    padding: 0 !important;
   }
 
-  .rev-bar-chart{
-    width: 65%;
-    height: 400px  !important;
+  .sub-heading{
     display: flex;
     justify-content: center;
+    padding-top: 20px !important;
+  }
+
+  .chart-container {
+    flex-direction: column;
+  }
+
+  .emp-pie-chart {
+    width: 100%; 
+    height: 300px; 
+  }
+  .rev-bar-chart {
+    width: 100%; 
+    min-height: 800px;
   }
 }
 
