@@ -127,6 +127,7 @@ function CompanyListPage() {
         {/* Search Field */}
         <Grid item xs={12} md={4}>
           <TextField
+            id="search-companies"
             placeholder="Search Companies"
             variant="outlined"
             margin="normal"
@@ -145,9 +146,10 @@ function CompanyListPage() {
 
         <Grid item xs={12} md={4} container alignItems="center">
           <FormControl fullWidth variant="outlined" margin="normal">
-            <InputLabel>Sort By</InputLabel>
+            <InputLabel htmlFor="sort-by">Sort By</InputLabel>
             <Box display="flex" alignItems="center">
               <Select
+                id="sort-by"
                 value={sortOption}
                 onChange={(e) => setSortOption(e.target.value)}
                 label="Sort By"
@@ -184,8 +186,9 @@ function CompanyListPage() {
           margin="normal"
           style={{ minWidth: 120 }}
         >
-          <InputLabel>Page Size</InputLabel>
+          <InputLabel htmlFor="page-size">Page Size</InputLabel>
           <Select
+            id="page-size"
             value={companiesPerPage}
             onChange={handleCompaniesPerPageChange}
             label="Companies Per Page"

@@ -84,8 +84,10 @@ function CompanyDetailsPage() {
     }
   };
 
-  const filteredLocations = locations.filter((loc) =>
-    loc.address.toLowerCase().includes(search.toLowerCase())
+  const filteredLocations = locations.filter(
+    (loc) =>
+      loc.name.toLowerCase().includes(search.toLowerCase()) ||
+      loc.address.toLowerCase().includes(search.toLowerCase())
   );
 
   // Display loading state while fetching data
@@ -163,6 +165,7 @@ function CompanyDetailsPage() {
           <ul>
             {filteredLocations.map((location) => (
               <CompanyLocationCard
+                key={location.location_id}
                 location={location}
                 selectedLocation={selectedLocation}
                 handleLocationClick={handleLocationClick}
