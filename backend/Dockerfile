@@ -15,8 +15,6 @@ RUN pip install -r requirements.txt
 COPY backend/ /code/backend/
 COPY manage.py /code/
 COPY Pipfile /code/
-COPY Pipfile.lock /code/
-COPY db.sqlite3 /code/
 
 # Expose 8000 to the host
 EXPOSE 8000
