@@ -39,8 +39,10 @@ const getLocationsByCompanyId = async (id) => {
   }
 };
 
-export default {
+const companyService = {
   getAllCompanies,
   getCompanyById,
   getLocationsByCompanyId,
 };
+
+export default companyService;
