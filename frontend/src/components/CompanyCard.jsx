@@ -13,7 +13,14 @@ import { Link } from "react-router-dom";
 const CompanyCard = ({ company }) => {
   return (
     <>
-      <Grid item xs={12} sm={6} md={4} key={company.company_id}>
+      <Grid
+        item
+        xs={12}
+        sm={6}
+        md={4}
+        key={company.company_id}
+        className="company-card"
+      >
         <Card
           style={{
             height: "250px",
@@ -22,17 +29,17 @@ const CompanyCard = ({ company }) => {
             justifyContent: "space-between",
             borderRadius: "16px",
             transition: "transform 0.3s, box-shadow 0.3s",
-            boxShadow: "0px 4px 10px rgba(0, 0, 255, 0.2)",
+            boxShadow: "0px 4px 10px rgba(50, 50, 50, 0.2)",
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = "scale(1.05)";
             e.currentTarget.style.boxShadow =
-              "0px 8px 20px rgba(0, 0, 255, 0.4)";
+              "0px 8px 20px rgba(50, 50, 50, 0.4)";
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = "scale(1)";
             e.currentTarget.style.boxShadow =
-              "0px 4px 10px rgba(0, 0, 255, 0.2)";
+              "0px 4px 10px rgba(50, 50, 50, 0.2)";
           }}
         >
           <CardContent>
@@ -40,9 +47,9 @@ const CompanyCard = ({ company }) => {
               <Avatar
                 style={{
                   marginRight: "8px",
-                  backgroundColor: "#3f51b5",
                   color: "#fff",
                 }}
+                className="avatar-background"
               >
                 {company.name.charAt(0)}
               </Avatar>
@@ -63,13 +70,13 @@ const CompanyCard = ({ company }) => {
           </CardContent>
           <Box textAlign="center" mb={2}>
             <Button
+              className="action-btn"
               component={Link}
               to={{
                 pathname: `/company/${company.company_id}`,
                 state: { company },
               }}
               variant="contained"
-              color="primary"
             >
               View Details
             </Button>

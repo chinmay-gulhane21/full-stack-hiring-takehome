@@ -116,7 +116,7 @@ function CompanyListPage() {
             gutterBottom
             style={{
               fontFamily: "Roboto, sans-serif",
-              color: "#3f51b5",
+              color: "black",
               fontWeight: "bold",
             }}
           >

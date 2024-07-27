@@ -11,8 +11,7 @@
 .company-details-container {
   display: flex;
   flex-direction: row;
-  
-  
+
   .details-section {
     width: 35%;
     padding: 0 20px 20px 20px;

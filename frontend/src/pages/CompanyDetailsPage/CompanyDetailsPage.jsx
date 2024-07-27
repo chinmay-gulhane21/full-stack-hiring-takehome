@@ -57,6 +57,14 @@ function CompanyDetailsPage() {
         const data = await companyService.getLocationsByCompanyId(id);
         if (data.success) {
           setLocations(data.data);
+          if (data.data.length > 0) {
+            setSelectedLocation(data.data[0]);
+            if (mapRef.current) {
+              mapRef.current.panTo(
+                mapCenter(data.data[0].latitude, data.data[0].longitude)
+              );
+            }
+          }
         } else {
           console.error("Error fetching locations:", data.message);
         }
@@ -88,10 +96,10 @@ function CompanyDetailsPage() {
       <div className="company-name-container">
         <div style={{ width: "50%", marginLeft: "22px" }}>
           <Button
+            className="action-btn"
             component={Link}
             to={{ pathname: `/`, state: { company } }}
             variant="contained"
-            color="primary"
           >
             Back to List
           </Button>

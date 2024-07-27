@@ -17,24 +17,20 @@ export default function ButtonAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" className="header">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Companies App
           </Typography>
-          <Button color="inherit" onClick={handleHomeClick}>
+          <Button
+            className="header-button"
+            color="inherit"
+            onClick={handleHomeClick}
+          >
             Home
           </Button>
           <Button
+            className="header-button"
             color="inherit"
             href="https://app.swaggerhub.com/apis/CHINMAYGULHANE_1/Company/1.0.0#/"
             target="_blank"
