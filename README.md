@@ -14,7 +14,7 @@ The application uses two CSV files:
    - Columns: `company_id`, `name`, `address`, `latitude`, `longitude`
 
 2. `locations.csv`:
-   - Columns: `location_id`, `company_id`, `name`, `address`, `latitude`, `longitude`
+   - Columns: location_id, company_id, name, address, latitude, longitude, revenue, employees
 
 ### Backend (Python)
 
@@ -53,6 +53,18 @@ The application uses two CSV files:
 1. A `Dockerfile` is created for the backend application.
 2. A `Dockerfile` is created for the frontend application.
 3. A `docker-compose.yml` file orchestrates both the backend and frontend services.
+
+## Screenshots
+
+### Company List Page
+![Company List Page](./data/screenshots/Company_List_Page.png)
+
+### Company Details Page
+![Company Details Page](./data/screenshots/Company_Details_Page.png)
+
+### Swagger Documentation
+![Swagger Documentation](./data/screenshots/Swagger_Documentation.png)
+
 
 ## Setup Instructions
 
