@@ -17,7 +17,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
-import CompanyCard from "../../components/CompanyCard";
+import CompanyCard from "../../components/CompanyCard/CompanyCard";
 import companyService from "../../services/companyService";
 
 function CompanyListPage() {
@@ -199,7 +199,6 @@ function CompanyListPage() {
           count={Math.ceil(sortedCompanies.length / companiesPerPage)}
           page={currentPage}
           onChange={handlePageChange}
-          color="primary"
         />
       </Box>
     </Container>

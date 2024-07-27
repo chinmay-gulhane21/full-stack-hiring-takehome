@@ -6,8 +6,8 @@ import "./CompanyDetailsPage.css";
 import Button from "@mui/material/Button";
 import { Grid, InputAdornment, TextField, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import CompanyLocationCard from "../../components/CompanyLocationCard";
-import CompanyMap from "../../components/CompanyMap";
+import CompanyLocationCard from "../../components/CompanyLocationCard/CompanyLocationCard";
+import CompanyMap from "../../components/CompanyMap/CompanyMap";
 
 // Helper function to create a map center object from latitude and longitude
 const mapCenter = (latitude, longitude) => ({
@@ -132,7 +132,7 @@ function CompanyDetailsPage() {
                 gutterBottom
                 style={{
                   fontFamily: "Roboto, sans-serif",
-                  color: "#3f51b5",
+                  color: "black",
                   fontWeight: "bold",
                 }}
               >

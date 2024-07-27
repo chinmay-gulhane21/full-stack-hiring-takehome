@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import CompanyListPage from "./pages/CompanyListPage/CompayListPage";
 import CompanyDetailsPage from "./pages/CompanyDetailsPage/CompanyDetailsPage";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import "./App.css";
 
 function App() {
