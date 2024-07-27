@@ -7,8 +7,6 @@ services:
       - .:/code
     ports:
       - "8000:8000"
-    env_file:
-      - .env
 
   frontend:
     build:
@@ -20,5 +18,5 @@ services:
     ports:
       - "3000:3000"
     env_file:
-      - .env
+      - ./frontend/.env
     command: ["npm", "start"]
