@@ -70,8 +70,10 @@ The application uses two CSV files:
 2. Navigate to the frontend directory and create an .env file with the necessary environment variables:
     ```sc
       cd frontend
+    ```  
     ```sh
       REACT_APP_GOOGLE_MAPS_API_KEY=<your_google_maps_api_key>
+    ```
 3. Build and start the application using Docker Compose in the root directory of the application:
    ```sh
    docker-compose up --build
@@ -99,8 +101,12 @@ The application uses two CSV files:
     ```sh
     pipenv shell
     ```
+5. Install django-cors-headers:
+    ```sh
+    pipenv install django-cors-headers
+    ```
 
-5. Run the Django server:
+6. Run the Django server:
     ```sh
     python manage.py migrate
     python manage.py runserver
@@ -130,7 +136,7 @@ The application uses two CSV files:
 
 ### Running Unit Tests
 
-#### Backend Tests
+### Backend Tests
 
 1. Navigate to the root directory and ensure the virtual environment is activated:
     ```sh
@@ -138,7 +144,12 @@ The application uses two CSV files:
     pipenv shell
     ```
 
-2. Run the Django tests:
+2. Install `pytest` if not already installed:
+    ```sh
+    pipenv install pytest
+    ```
+
+3. Run the Django tests:
     ```sh
     python manage.py test
     ```
@@ -152,5 +163,5 @@ The application uses two CSV files:
 
 2. Run the React tests:
     ```sh
-    npm test
+    npm test -- --watchAll=false
     ```
