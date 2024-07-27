@@ -90,8 +90,9 @@ The application uses two CSV files:
    ```sh
    docker-compose up --build
 4. Access the application:
-   1. Frontend: http://localhost:3000
-   2. Backend API: http://localhost:8000
+    1. Frontend: [http://localhost:3000](http://localhost:3000)
+    2. Backend API: [http://localhost:8000](http://localhost:8000)
+    3. Example backend endpoint: [http://localhost:8000/api/companies/all](http://localhost:8000/api/companies/all)
 
 ### Running the Application Locally
 
