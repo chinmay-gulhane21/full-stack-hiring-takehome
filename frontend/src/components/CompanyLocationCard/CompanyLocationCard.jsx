@@ -29,10 +29,12 @@ const CompanyLocationCard = (props) => {
           {props.location.address}
         </Typography>
         <Typography variant="body2" color="textSecondary">
-          Latitude: {props.location.latitude}
+          <span className="location-card-label">Latitude:</span>{" "}
+          {props.location.latitude}
         </Typography>
         <Typography variant="body2" color="textSecondary">
-          Longitude: {props.location.longitude}
+          <span className="location-card-label">Longitude:</span>{" "}
+          {props.location.longitude}
         </Typography>
       </CardContent>
     </Card>

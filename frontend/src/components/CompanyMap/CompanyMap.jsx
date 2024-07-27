@@ -1,3 +1,4 @@
+import React, { useRef, useState } from "react";
 import {
   Map,
   AdvancedMarker,
@@ -14,22 +15,46 @@ const mapContainerStyle = {
   width: "100%",
 };
 
-const PoiMarkers = ({ pois, handleClick }) => {
+const PoiMarkers = ({ pois, handleClick, selectedLocation }) => {
+  const markerRefs = useRef({});
+
   return (
     <>
-      {pois.map((poi) => (
-        <AdvancedMarker
-          key={poi.location_id}
-          position={mapCenter(poi.latitude, poi.longitude)}
-          clickable={true}
-          onClick={() => handleClick(poi)}
-        >
-          <Pin background="#FBBC04" glyphColor="#000" borderColor="#000" />
-        </AdvancedMarker>
+      {pois.map((poi, index) => (
+        <div key={index}>
+          <AdvancedMarker
+            key={poi.location_id}
+            position={mapCenter(poi.latitude, poi.longitude)}
+            clickable={true}
+            onClick={() => handleClick(poi)}
+            ref={(ref) => (markerRefs.current[poi.location_id] = ref)}
+          >
+            <Pin
+              key={`pin-${poi.location_id}`}
+              background="#FBBC04"
+              glyphColor="#000"
+              borderColor="#000"
+            />
+            {selectedLocation &&
+              selectedLocation.location_id === poi.location_id && (
+                <InfoWindow
+                  key={`infowindow-${poi.location_id}`}
+                  anchor={markerRefs.current[poi.location_id]}
+                  onCloseClick={() => handleClick(null)}
+                >
+                  <div className="info-window-content">
+                    <h3>{poi.name}</h3>
+                    <p>{poi.address}</p>
+                  </div>
+                </InfoWindow>
+              )}
+          </AdvancedMarker>
+        </div>
       ))}
     </>
   );
 };
+
 const CompanyMap = ({
   company,
   mapRef,
@@ -43,7 +68,7 @@ const CompanyMap = ({
       <Map
         defaultZoom={13}
         defaultCenter={mapCenter(company.latitude, company.longitude)}
-        mapId="compay_location_map"
+        mapId="company_location_map"
         style={mapContainerStyle}
         onLoad={(map) => {
           mapRef.current = map;
@@ -52,21 +77,8 @@ const CompanyMap = ({
         <PoiMarkers
           pois={[company, ...locations]}
           handleClick={handleLocationClick}
+          selectedLocation={selectedLocation}
         />
-        {selectedLocation && (
-          <InfoWindow
-            position={mapCenter(
-              selectedLocation.latitude,
-              selectedLocation.longitude
-            )}
-            onCloseClick={() => setSelectedLocation(null)}
-          >
-            <div className="info-window-content">
-              <h3>{selectedLocation.name}</h3>
-              <p>{selectedLocation.address}</p>
-            </div>
-          </InfoWindow>
-        )}
       </Map>
     </>
   );

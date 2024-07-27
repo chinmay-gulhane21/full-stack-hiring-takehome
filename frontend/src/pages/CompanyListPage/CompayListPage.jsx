@@ -53,8 +53,10 @@ function CompanyListPage() {
   }, []);
 
   // Filter companies
-  const filteredCompanies = companies.filter((company) =>
-    company.name.toLowerCase().includes(search.toLowerCase())
+  const filteredCompanies = companies.filter(
+    (company) =>
+      company.name.toLowerCase().includes(search.toLowerCase()) ||
+      company.address.toLowerCase().includes(search.toLowerCase())
   );
 
   // Sort companies
@@ -62,7 +64,7 @@ function CompanyListPage() {
     let comparison = 0;
     if (sortOption === "name") {
       comparison = a.name.localeCompare(b.name);
-    } else if (sortOption === "location") {
+    } else if (sortOption === "address") {
       comparison = a.address.localeCompare(b.address);
     }
     return sortDirection === "asc" ? comparison : -comparison;
@@ -156,7 +158,7 @@ function CompanyListPage() {
                 style={{ flexGrow: 1 }}
               >
                 <MenuItem value="name">Name</MenuItem>
-                <MenuItem value="location">Location</MenuItem>
+                <MenuItem value="address">Address</MenuItem>
               </Select>
               <Tooltip
                 title={sortDirection === "asc" ? "Ascending" : "Descending"}

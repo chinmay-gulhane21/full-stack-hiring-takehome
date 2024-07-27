@@ -8,6 +8,8 @@ import { Grid, InputAdornment, TextField, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import CompanyLocationCard from "../../components/CompanyLocationCard/CompanyLocationCard";
 import CompanyMap from "../../components/CompanyMap/CompanyMap";
+import RevenueChart from "../../components/Charts/RevenueChart";
+import EmployeesPieChart from "../../components/Charts/EmployeesPieChart";
 
 // Helper function to create a map center object from latitude and longitude
 const mapCenter = (latitude, longitude) => ({
@@ -162,6 +164,7 @@ function CompanyDetailsPage() {
             </Grid>
           </Grid>
 
+          {/* <div className="scrollable-list"> */}
           <ul>
             {filteredLocations.map((location) => (
               <CompanyLocationCard
@@ -172,6 +175,7 @@ function CompanyDetailsPage() {
               />
             ))}
           </ul>
+          {/* </div> */}
         </div>
         <div className="map-container">
           <CompanyMap
@@ -182,6 +186,22 @@ function CompanyDetailsPage() {
             selectedLocation={selectedLocation}
             setSelectedLocation={setSelectedLocation}
           />
+        </div>
+      </div>
+      <Typography
+        variant="h4"
+        component="h1"
+        gutterBottom
+        className="sub-heading"
+      >
+        Analytics
+      </Typography>
+      <div className="chart-container">
+        <div className="emp-pie-chart">
+          <EmployeesPieChart locations={locations} />
+        </div>
+        <div className="rev-bar-chart">
+          <RevenueChart locations={locations} />
         </div>
       </div>
     </APIProvider>

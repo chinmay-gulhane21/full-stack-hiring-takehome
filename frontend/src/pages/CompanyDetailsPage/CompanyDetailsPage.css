@@ -8,6 +8,13 @@
   }
 }
 
+.sub-heading {
+  font-family: "Roboto, sans-serif";
+  color: black !important;
+  font-weight: 700 !important;
+  padding-left: 20px;
+}
+
 .company-details-container {
   display: flex;
   flex-direction: row;
@@ -75,4 +82,31 @@
   .search-location {
     padding-top: 0 !important;
   }
+}
+
+.chart-container {
+  margin-top: 32px;
+  display: flex;
+
+  .emp-pie-chart{
+    width: 35% !important;
+    display: flex;
+    justify-content: center;
+    height: 400px  !important;
+  }
+
+  .rev-bar-chart{
+    width: 65%;
+    height: 400px  !important;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.scrollable-list {
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 7px 0 7px;
+  margin: 0;
 }
