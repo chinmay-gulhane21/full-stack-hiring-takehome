@@ -2,95 +2,155 @@
 
 ## Overview
 
-Create a web application that displays a list of companies and their details, including multiple possible locations. The application should have a Python backend API, a React frontend with a two-page structure and map integration, and be containerized using Docker.
+This project is a web application that displays a list of companies and their details, including multiple possible locations. The application features a Python backend API and a React frontend with a two-page structure and map integration. The entire application is containerized using Docker.
 
 ## Requirements
 
 ### Data Structure
 
-The application will use two CSV files:
+The application uses two CSV files:
 
-1. companies.csv:
-   - Columns: company_id, name, address, latitude, longitude
+1. `companies.csv`:
+   - Columns: `company_id`, `name`, `address`, `latitude`, `longitude`
 
-2. locations.csv:
-   - Columns: location_id, company_id, name, address, latitude, longitude
+2. `locations.csv`:
+   - Columns: `location_id`, `company_id`, `name`, `address`, `latitude`, `longitude`
 
 ### Backend (Python)
 
-1. Create a Flask/FastAPI/Django(any python framework only) application that serves as the backend API.
-2. Implement the following endpoints:
-   
-   a. Get all companies (read from companies.csv)
-   
-   b. Get company details by ID (from companies.csv)
-   
-   c. Get all locations for a specific company ID (from locations.csv)
-   
-4. Implement basic error handling and logging.
-5. Provide API Documentation
+1. The backend is a Django application serving as the API.
+2. The following endpoints are implemented:
+   - **Get all companies**: Fetches data from `companies.csv`
+   - **Get company details by ID**: Fetches data from `companies.csv`
+   - **Get all locations for a specific company ID**: Fetches data from `locations.csv`
+3. Basic error handling and logging are implemented.
+4. API Documentation is provided using Swagger. You can access it [here](https://app.swaggerhub.com/apis/CHINMAYGULHANE_1/Company/1.0.0#/).
 
 ### Frontend (React)
 
-1. Create a React application with routing (e.g., using React Router) for two pages:
-   a. Company List Page
-   b. Company Details Page
+1. The frontend is a React application using React Router for routing with two main pages:
+   - **Company List Page**
+   - **Company Details Page**
 
-2. Company List Page:
-   - Display a list or grid of companies fetched from the backend API.
-   - Each company item should show basic information (name, address).
-   - Implement a search or filter functionality to find companies by name.
-   - Clicking on a company should navigate to the Company Details Page.
+2. **Company List Page**:
+   - Displays a grid of companies fetched from the backend API.
+   - Each company item shows basic information (name, address).
+   - Includes a search/filter functionality to find companies by name.
+   - Clicking on a company navigates to the Company Details Page.
 
-3. Company Details Page:
-   - Display detailed information about the selected company (name, address).
-   - Integrate a map component (using Leaflet or Google Maps React) to show the company's main location.
-   - Fetch and display a list of possible locations for the company.
-   - Display the locations list, including name, address, latitude, and longitude for each location.
-   - Implement a creative and user-friendly way to visualize or interact with the locations data. Candidates have the freedom to choose how they want to show this information (e.g., interactive list, map with multiple markers, tabbed interface, etc.).
-   - Show a "Back to List" button to return to the Company List Page.
+3. **Company Details Page**:
+   - Displays detailed information about the selected company (name, address).
+   - Integrates a map component using Google Maps React to show the company's main location.
+   - Fetches and displays a list of possible locations for the company.
+   - Displays the locations list, including name, address, latitude, and longitude for each location.
+   - Implements a user-friendly way to visualize or interact with the locations data.
+   - Shows a "Back to List" button to return to the Company List Page.
 
-4. Implement responsive design for both desktop and mobile views.
+4. Responsive design is implemented for both desktop and mobile views.
 
 ### Docker and Docker Compose
 
-1. Create a Dockerfile for the backend application.
-2. Create a Dockerfile for the frontend application.
-3. Create a docker-compose.yml file that orchestrates both the backend and frontend services.
+1. A `Dockerfile` is created for the backend application.
+2. A `Dockerfile` is created for the frontend application.
+3. A `docker-compose.yml` file orchestrates both the backend and frontend services.
 
-## Deliverables
+## Setup Instructions
 
-1. Source code for both backend and frontend applications.
-2. Dockerfile for each application.
-3. docker-compose.yml file.
-4. README.md with instructions on how to run the application and any additional notes.
-5. Sample CSV files: companies.csv and locations.csv (at least 10 companies and 30 locations).
+### Prerequisites
 
-## Evaluation Criteria
+- Docker
+- Docker Compose
 
-- Code quality and organization
-- Proper use of Python, React, and Docker best practices
-- Implementation of routing and state management in React
-- Efficient handling of data from multiple CSV files
-- Creativity and user experience in displaying company locations
-- Error handling and edge cases
-- Documentation and code comments
+### Running the Application Using Docker
 
-## Bonus Points
+1. Clone the repository:
+   ```sh
+   git clone <repository_url>
+   cd full-stack-hiring-takehome-main
+2. Navigate to the frontend directory and create an .env file with the necessary environment variables:
+    ```sc
+      cd frontend
+    ```sh
+      REACT_APP_GOOGLE_MAPS_API_KEY=<your_google_maps_api_key>
+3. Build and start the application using Docker Compose in the root directory of the application:
+   ```sh
+   docker-compose up --build
+4. Access the application:
+   1. Frontend: http://localhost:3000
+   2. Backend API: http://localhost:8000
 
-- Implement unit tests for backend and frontend
-- Add possible data visualizations (e.g., charts) on the Company Details Page
-- Implement an innovative way to compare or analyze multiple locations
-- Swagger UI Doccumentation
+### Running the Application Locally
 
-## Time Limit
+#### Backend Setup
 
-Candidates will have 4 days to complete this assessment. The deadline for submission is Saturday at 4:00 PM EST. Please ensure that you manage your time effectively to showcase your best work within this timeframe.
-We understand that you may have other commitments, so please allocate your time wisely across the various components of the assessment. It's okay if not all features are fully implemented; we're interested in seeing your approach, code quality, and how you prioritize tasks given the time constraint.
+1. Ensure you have Python 3.11.7 installed.
 
-## Submission
+2. Navigate to the root directory:
+    ```sh
+    cd <root-directory>
+    ```
 
-Please provide a link to a public GitHub repository.
+3. Install the dependencies:
+    ```sh
+    pipenv install
+    ```
 
-Good luck!
+4. Activate the virtual environment:
+    ```sh
+    pipenv shell
+    ```
 
+5. Run the Django server:
+    ```sh
+    python manage.py migrate
+    python manage.py runserver
+    ```
+
+#### Frontend Setup
+
+1. Navigate to the frontend directory:
+    ```sh
+    cd frontend
+    ```
+
+2. Install the dependencies:
+    ```sh
+    npm install
+    ```
+
+3. Create an .env file in the frontend directory and add the necessary environment variables:
+    ```sh
+    REACT_APP_GOOGLE_MAPS_API_KEY=<your_google_maps_api_key>
+    ```
+
+4. Run the React development server:
+    ```sh
+    npm start
+    ```
+
+### Running Unit Tests
+
+#### Backend Tests
+
+1. Navigate to the root directory and ensure the virtual environment is activated:
+    ```sh
+    cd <root-directory>
+    pipenv shell
+    ```
+
+2. Run the Django tests:
+    ```sh
+    python manage.py test
+    ```
+
+#### Frontend Tests
+
+1. Navigate to the frontend directory:
+    ```sh
+    cd frontend
+    ```
+
+2. Run the React tests:
+    ```sh
+    npm test
+    ```
