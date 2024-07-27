@@ -6,7 +6,7 @@ services:
     volumes:
       - .:/code
     ports:
-      - "8000:8000"
+      - "${BACKEND_PORT:-8000}:8000"
 
   frontend:
     build:
@@ -16,7 +16,7 @@ services:
       - ./frontend:/app
       - /app/node_modules
     ports:
-      - "3000:3000"
+      - "${FRONTEND_PORT:-3000}:3000"
     env_file:
       - ./frontend/.env
     command: ["npm", "start"]
